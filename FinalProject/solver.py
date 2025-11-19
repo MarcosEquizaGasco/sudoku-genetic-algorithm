@@ -6,6 +6,7 @@ import numpy as np
 from sudoku_solver import SudokuGA
 
 
+# Function to parse puzzle .txt files
 def parse_puzzles(txt_path):
     with open(txt_path, 'r') as f:
         puzzles = [line.strip() for line in f if line.strip()]
@@ -16,6 +17,7 @@ def parse_puzzles(txt_path):
     return [parse_puzzle(puzzle) for puzzle in puzzles]
 
 
+# Function to run one simulation
 def run_single_simulation(args):
     puzzle_idx, puzzle, params = args
     ga = SudokuGA(puzzle,
@@ -39,6 +41,7 @@ def run_single_simulation(args):
     }
 
 
+# Function so solve puzzle
 def solve_all_with_params(puzzle_file, output_csv, params):
     puzzles = parse_puzzles(puzzle_file)
     print(f"Loaded {len(puzzles)} puzzles.")

@@ -3,6 +3,7 @@ import random
 import matplotlib.pyplot as plt
 
 
+# Class for Sudoku Genetic ALgorithm
 class SudokuGA:
     def __init__(self, puzzle,
                  population_size=1000,
@@ -50,6 +51,7 @@ class SudokuGA:
         self.population = [self.generate_candidate() for _ in range(self.population_size)]
 
     def fitness(self, grid):
+        """Calculate fitness score"""
         duplicates = 0
         for i in range(self.grid_size):
             row_counts = np.bincount(grid[i], minlength=10)[1:]
@@ -75,6 +77,7 @@ class SudokuGA:
 
     '''
     def select_parents(self):
+        """Select parents to create new grids"""
         # Rank-based selection: sort by fitness
         scored = [(self.fitness(ind), ind) for ind in self.population]
         scored.sort(key=lambda x: x[0])  # lower fitness is better
@@ -153,6 +156,7 @@ class SudokuGA:
         return mutated
 
     def solve(self):
+        """Solve the sudoku"""
         self.initialize_population()
         best_fitness = float('inf')
         best_grid = None
@@ -219,7 +223,7 @@ class SudokuGA:
             # if gen % 50 == 0:
                 # print(f"Gen {gen}, Best fitness: {best_fitness}, Best local best fitness: {local_best_fitness}")
 
-        print("❌ No full solution found.")
+        print("No full solution found.")
         plt.plot(fitness_history)
         plt.title("Best Fitness Over Generations")
         plt.xlabel("Generation")
